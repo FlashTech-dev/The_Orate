@@ -19,7 +19,11 @@ class LoginActivity : AppCompatActivity()
         back_to_register.setOnClickListener {
             finish()
         }
+        photo_login.setOnClickListener {
+            Log.d("LoginActivity", "try to show photo")
+        }
     }
+
     private fun performLogin() {
         val email = email_login.text.toString()
         val password = password_login.text.toString()
