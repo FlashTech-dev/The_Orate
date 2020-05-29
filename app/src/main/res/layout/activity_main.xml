@@ -8,7 +8,7 @@
     tools:context=".RegisterActivity">
 
     <EditText
-        android:id="@+id/Username_register"
+        android:id="@+id/username_register"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
@@ -36,9 +36,9 @@
         android:hint="Email"
         android:paddingLeft="16dp"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/Username_register"
-        app:layout_constraintStart_toStartOf="@+id/Username_register"
-        app:layout_constraintTop_toBottomOf="@+id/Username_register" />
+        app:layout_constraintEnd_toEndOf="@+id/username_register"
+        app:layout_constraintStart_toStartOf="@+id/username_register"
+        app:layout_constraintTop_toBottomOf="@+id/username_register" />
 
     <EditText
         android:id="@+id/Password_register"
@@ -96,6 +96,15 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/selectphoto_register"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="@+id/photo_login"
+        app:layout_constraintEnd_toEndOf="@+id/photo_login"
+        app:layout_constraintStart_toStartOf="@+id/photo_login"
+        app:layout_constraintTop_toTopOf="@+id/photo_login" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
