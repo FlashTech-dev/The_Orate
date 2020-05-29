@@ -104,6 +104,9 @@ class RegisterActivity : AppCompatActivity() {
         ref.setValue(user)
             .addOnSuccessListener {
                 Log.d("RegisterActivity", "saved user to firebase")
+                val intent =Intent(this, NewMessageActivity ::class.java)
+                intent.flags =Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
             .addOnFailureListener {
                 Log.d("MainActivity","failed to save the user: ${it.message}")
