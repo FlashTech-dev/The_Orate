@@ -29,6 +29,8 @@ class NewMessageActivity : AppCompatActivity() {
         when (item?.itemId)
         {
             R.id.new_message -> {
+                val intent =Intent(this,NewUserMessageActivity::class.java)
+                startActivity(intent)
         }
             R.id.sign_out -> {
                 FirebaseAuth.getInstance().signOut()
