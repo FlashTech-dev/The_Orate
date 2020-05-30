@@ -16,16 +16,33 @@ class ChatLogActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat_log)
         supportActionBar?.title= "Chat Log"
         val adapter =GroupAdapter<ViewHolder>()
-        adapter.add()
+        adapter.add(ChatFromItem())
+        adapter.add(ChatToItem())
+        adapter.add(ChatFromItem())
+        adapter.add(ChatToItem())
+
+
+
         recylclerview_chatlog.adapter =adapter
     }
 }
-class ChatItem: Item<ViewHolder>()
+class ChatFromItem: Item<ViewHolder>()
 {
     override fun bind(viewHolder: ViewHolder, position: Int) {
 
     }
     override fun getLayout(): Int {
+        return R.layout.chat_row
+
+    }
+}
+class ChatToItem: Item<ViewHolder>()
+{
+    override fun bind(viewHolder: ViewHolder, position: Int) {
+
+    }
+    override fun getLayout(): Int {
+        return R.layout.chat_to_row
 
     }
 }
