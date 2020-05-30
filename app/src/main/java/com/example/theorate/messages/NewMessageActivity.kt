@@ -1,10 +1,12 @@
-package com.example.theorate
+package com.example.theorate.messages
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import com.example.theorate.R
+import com.example.theorate.registerlogin.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class NewMessageActivity : AppCompatActivity() {
@@ -29,7 +31,8 @@ class NewMessageActivity : AppCompatActivity() {
         when (item?.itemId)
         {
             R.id.new_message -> {
-                val intent =Intent(this,NewUserMessageActivity::class.java)
+                val intent =Intent(this,
+                    NewUserMessageActivity::class.java)
                 startActivity(intent)
         }
             R.id.sign_out -> {
