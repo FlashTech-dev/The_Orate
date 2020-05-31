@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.theorate.R
 import com.example.theorate.messages.LatestMessageActivity
+import com.example.theorate.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -120,9 +121,7 @@ class RegisterActivity : AppCompatActivity() {
 }
 
 
-class User(val uid: String , val username: String , val profileImageUrl: String){
-    constructor() : this("","","")
-}
+
 
 
 
