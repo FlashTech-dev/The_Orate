@@ -104,6 +104,10 @@ class ChatLogActivity : AppCompatActivity() {
         toReference.setValue(chatMessage)
         val latestMessageRef =FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId/$toId")
         latestMessageRef.setValue(chatMessage)
+
+        val latestMessagetoRef =FirebaseDatabase.getInstance().getReference("/latest-messages/$toId/$fromId")
+        latestMessagetoRef.setValue(chatMessage)
+
     }
 }
 class ChatFromItem(val text:String ,val user: User): Item<ViewHolder>()
