@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TheOrate</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="send">Send</string>
 </resources>
