@@ -17,6 +17,7 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_latest_message.*
 import kotlinx.android.synthetic.main.activity_new_message.*
+import kotlinx.android.synthetic.main.latest_message_row.view.*
 
 class LatestMessageActivity : AppCompatActivity() {
     companion object{
@@ -33,13 +34,20 @@ class LatestMessageActivity : AppCompatActivity() {
         recyclerview_latestmessage.adapter =adapter
     }
 
-    class LatestMessageRow: Item<ViewHolder>()
+    class LatestMessageRow(val chatMessage: ChatMessage): Item<ViewHolder>()
     {
         override fun bind(viewHolder: ViewHolder, position: Int) {
-
+            viewHolder.itemView.message_textview_latest_message.text=chatMessage.text
         }
         override fun getLayout(): Int {
             return R.layout.latest_message_row
+        }
+    }
+    val latestMessageMap =HashMap<String,ChatMessage>()
+    private fun refreshRecyclerViewMessages(){
+        adapter.clear()
+        latestMessageMap.values.forEach{
+            adapter.add(LatestMessageRow(it))
         }
     }
     private fun listenForLatestMessages()
@@ -48,12 +56,17 @@ class LatestMessageActivity : AppCompatActivity() {
         val ref =FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId")
         ref.addChildEventListener(object :ChildEventListener{
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+                val chatMessage =p0.getValue(ChatMessage::class.java)?:return
+                latestMessageMap[p0.key!!] =chatMessage
+                refreshRecyclerViewMessages()
 
             }
             override fun onChildAdded(p0: DataSnapshot, p1: String?)
             {
 
-                val chatMessage =p0.getValue(ChatMessage::class.java)
+                val chatMessage =p0.getValue(ChatMessage::class.java)?:return
+                latestMessageMap[p0.key!!] =chatMessage
+                refreshRecyclerViewMessages()
             }
             override fun onChildRemoved(p0: DataSnapshot) {
 
@@ -68,13 +81,7 @@ class LatestMessageActivity : AppCompatActivity() {
     }
     val adapter=GroupAdapter<ViewHolder>()
 
-    private fun setupDummyRows()
-    {
-        adapter.add(LatestMessageRow())
-        adapter.add(LatestMessageRow())
-        adapter.add(LatestMessageRow())
 
-    }
     private fun fetchCurrentUser()
     {
         val uid =FirebaseAuth.getInstance().uid
