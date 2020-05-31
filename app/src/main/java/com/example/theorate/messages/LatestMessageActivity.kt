@@ -3,18 +3,68 @@ package com.example.theorate.messages
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.theorate.R
+import com.example.theorate.models.User
 import com.example.theorate.registerlogin.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.Item
+import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.activity_latest_message.*
+import kotlinx.android.synthetic.main.activity_new_message.*
 
 class LatestMessageActivity : AppCompatActivity() {
+    companion object{
+        var currentUser : User?= null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_latest_message)
+        fetchCurrentUser()
+        setupDummyRows()
         VerifyUserLogin()
+    }
+    class LatestMessageRow: Item<ViewHolder>()
+    {
+        override fun bind(viewHolder: ViewHolder, position: Int) {
+
+        }
+        override fun getLayout(): Int {
+            return R.layout.latest_message_row
+        }
+    }
+    private fun setupDummyRows()
+    {
+        val adapter=GroupAdapter<ViewHolder>()
+        adapter.add(LatestMessageRow())
+        adapter.add(LatestMessageRow())
+        adapter.add(LatestMessageRow())
+        recyclerview_latestmessage.adapter =adapter
+    }
+    private fun fetchCurrentUser()
+    {
+        val uid =FirebaseAuth.getInstance().uid
+        val ref=FirebaseDatabase.getInstance().getReference("/user/$uid")
+        ref.addListenerForSingleValueEvent(object:ValueEventListener {
+
+            override fun onDataChange(p0: DataSnapshot) {
+                currentUser=p0.getValue(User::class.java)
+                Log.d("LatestMessages","CurrentUser${currentUser?.profileImageUrl}")
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+        })
     }
     private fun VerifyUserLogin()
     {
