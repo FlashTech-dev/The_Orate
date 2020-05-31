@@ -28,7 +28,6 @@ class LatestMessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_latest_message)
         fetchCurrentUser()
-       // setupDummyRows()
         listenForLatestMessages()
         VerifyUserLogin()
         recyclerview_latestmessage.adapter =adapter
@@ -38,6 +37,27 @@ class LatestMessageActivity : AppCompatActivity() {
     {
         override fun bind(viewHolder: ViewHolder, position: Int) {
             viewHolder.itemView.message_textview_latest_message.text=chatMessage.text
+            val chatPartnerId:String
+            if (chatMessage.fromId ==FirebaseAuth.getInstance().uid)
+            {
+                chatPartnerId =chatMessage.toId
+            }
+            else
+            {
+                chatPartnerId=chatMessage.fromId
+            }
+            val ref =FirebaseDatabase.getInstance().getReference("/users/$chatPartnerId")
+            ref.addListenerForSingleValueEvent(object :ValueEventListener{
+                override fun onDataChange(p0: DataSnapshot) {
+                    val user=p0.getValue(User::class.java)
+                    viewHolder.itemView.username_textview_latest_message.text =user?.username
+
+                }
+                override fun onCancelled(p0: DatabaseError) {
+
+                }
+            })
+
         }
         override fun getLayout(): Int {
             return R.layout.latest_message_row
