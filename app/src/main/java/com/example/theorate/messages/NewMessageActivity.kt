@@ -1,8 +1,11 @@
-package com.example.theorate
+package com.example.theorate.messages
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.theorate.R
+import com.example.theorate.registerlogin.User
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -43,6 +46,11 @@ class NewMessageActivity : AppCompatActivity() {
                     }
 
                 }
+                adapter.setOnItemClickListener { item, view ->
+                    val intent =Intent(view.context, ChatLogActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
                 recyclerview_newmessage.adapter = adapter
             }
             override fun onCancelled(p0: DatabaseError) {
@@ -51,7 +59,7 @@ class NewMessageActivity : AppCompatActivity() {
         })
     }
 }
-class UserItem(val user:User): Item<ViewHolder>()
+class UserItem(val user: User): Item<ViewHolder>()
 {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.username_textview_new_message.text=user.username
