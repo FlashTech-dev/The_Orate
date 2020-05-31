@@ -1,4 +1,4 @@
-package com.example.theorate.registerlogin
+package com.example.theorate
 
 import android.app.Activity
 import android.content.Intent
@@ -8,8 +8,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
-import com.example.theorate.R
-import com.example.theorate.messages.NewMessageActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -108,7 +106,7 @@ class RegisterActivity : AppCompatActivity() {
         ref.setValue(user)
             .addOnSuccessListener {
                 Log.d("RegisterActivity", "saved user to firebase")
-                val intent =Intent(this, NewMessageActivity::class.java)
+                val intent =Intent(this, LatestMessageActivity::class.java)
                 intent.flags =Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }

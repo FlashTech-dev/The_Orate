@@ -1,19 +1,17 @@
-package com.example.theorate.messages
+package com.example.theorate
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.example.theorate.R
-import com.example.theorate.registerlogin.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
 
-class NewMessageActivity : AppCompatActivity() {
+class LatestMessageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_message)
+        setContentView(R.layout.activity_latest_message)
         VerifyUserLogin()
     }
     private fun VerifyUserLogin()
@@ -31,10 +29,9 @@ class NewMessageActivity : AppCompatActivity() {
         when (item?.itemId)
         {
             R.id.new_message -> {
-                val intent =Intent(this,
-                    NewUserMessageActivity::class.java)
+                val intent =Intent(this, NewMessageActivity::class.java)
                 startActivity(intent)
-        }
+            }
             R.id.sign_out -> {
                 FirebaseAuth.getInstance().signOut()
                 val intent = Intent(this, RegisterActivity::class.java)
